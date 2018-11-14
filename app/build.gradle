@@ -1,0 +1,48 @@
+
+android {
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    implementation External.kotlin
+    //  Support
+    implementation Support.appcompat
+    implementation Support.constraint
+    implementation Support.recyclerView
+    implementation Support.design
+    implementation Support.constraint
+    implementation Support.cardView
+    //  Logging
+    implementation External.timber
+    //  RX
+    implementation External.rxjava2
+    implementation External.rxbinding
+    implementation External.rxkotlin
+    //  DI
+    implementation External.dagger
+    implementation External.daggerSupport
+    annotationProcessor External.daggerCompiler
+    annotationProcessor External.daggerProcessor
+    kapt External.daggerProcessor
+    kapt External.daggerCompiler
+    //  Retrofit
+    implementation External.retrofit
+    implementation External.moshiConverter
+    implementation External.retrofitRxAdapter
+    implementation External.okhttpLoggingInterceptor
+    //  Leak detection
+    debugImplementation External.leakcanaryDebug
+    releaseImplementation External.leakcanaryRelease
+    //  Testing
+    testImplementation Uber.ribTestUtils
+    testImplementation TestDeps.junit
+    androidTestImplementation TestDeps.runner
+    androidTestImplementation TestDeps.espresso
+}
