@@ -1,9 +1,61 @@
+apply plugin: 'com.getkeepsafe.dexcount'
+apply plugin: 'com.vanniktech.android.apk.size'
+
+apply from: '../VersionUtils.gradle'
+
+apply from: '../DokkaConfig.gradle'
+
+def buildVersionCode = project.hasProperty("devBuild") ? 100 : minutesVersionCode
 
 android {
+
+    defaultConfig {
+        applicationId Build.appId
+        versionCode buildVersionCode
+        versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        manifestPlaceholders = [appName: "@string/app_name"]
+    }
+
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
+            multiDexEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            manifestPlaceholders = [appName: "NestedList - Debug"]
+            debuggable true
+            multiDexEnabled true
+            minifyEnabled false
+            ext.enableCrashlytics = false
+            ext.alwaysUpdateBuildId = false
+        }
+    }
+
+    flavorDimensions "stage"
+    productFlavors {
+        dev {
+            dimension "stage"
+            versionNameSuffix "-dev" // e.g 1.0-dev
+            applicationIdSuffix '.dev'
+            resConfigs("en", "xxhdpi")
+        }
+        prod {
+            dimension "stage"
+        }
+    }
+    variantFilter { variant ->
+        // 'dev' flavor is only available for debug build
+        if (variant.buildType.name != 'debug' && variant.getFlavors().get(0).name == "dev") {
+            variant.setIgnore(true)
+        }
+        // 'prod' flavor is only available for release build
+        if (!(variant.buildType.name == 'release') && variant.getFlavors().get(0).name == "prod") {
+            variant.setIgnore(true)
         }
     }
 }
