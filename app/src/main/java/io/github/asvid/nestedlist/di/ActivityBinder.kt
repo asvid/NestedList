@@ -6,7 +6,7 @@ import dagger.Module
 import dagger.android.ActivityKey
 import dagger.android.AndroidInjector
 import dagger.multibindings.IntoMap
-import io.github.asvid.nestedlist.MainActivity
+import io.github.asvid.nestedlist.views.MainActivity
 import io.github.asvid.nestedlist.di.components.MainActivityComponent
 
 @Module

@@ -26,6 +26,10 @@ object External {
   const val firebaseCore = "com.google.firebase:firebase-core:16.0.4"
   const val crashlytics = "com.crashlytics.sdk.android:crashlytics:2.9.5"
 
+  const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
+  const val glideCompiler = "com.github.bumptech.glide:compiler:${Versions.glide}"
+  const val glideRecyclerView = "com.github.bumptech.glide:recyclerview-integration:${Versions.glide}"
+
 }
 
 object Realm {

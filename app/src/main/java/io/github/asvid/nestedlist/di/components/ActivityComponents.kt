@@ -3,7 +3,7 @@ package io.github.asvid.nestedlist.di.components
 import dagger.Module
 import dagger.Subcomponent
 import dagger.android.AndroidInjector
-import io.github.asvid.nestedlist.MainActivity
+import io.github.asvid.nestedlist.views.MainActivity
 
 @Subcomponent(modules = [MainActivityComponent.MainActivityModule::class])
 interface MainActivityComponent : AndroidInjector<MainActivity> {

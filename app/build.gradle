@@ -9,92 +9,102 @@ def buildVersionCode = project.hasProperty("devBuild") ? 100 : minutesVersionCod
 
 android {
 
-    defaultConfig {
-        applicationId Build.appId
-        versionCode buildVersionCode
-        versionName "1.0"
-        vectorDrawables.useSupportLibrary = true
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  defaultConfig {
+    applicationId Build.appId
+    versionCode buildVersionCode
+    versionName "1.0"
+    vectorDrawables.useSupportLibrary = true
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        manifestPlaceholders = [appName: "@string/app_name"]
-    }
+    manifestPlaceholders = [appName: "@string/app_name"]
+  }
 
-    buildTypes {
-        release {
-            minifyEnabled true
-            shrinkResources true
-            multiDexEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-        debug {
-            manifestPlaceholders = [appName: "NestedList - Debug"]
-            debuggable true
-            multiDexEnabled true
-            minifyEnabled false
-            ext.enableCrashlytics = false
-            ext.alwaysUpdateBuildId = false
-        }
+  buildTypes {
+    release {
+      minifyEnabled true
+      shrinkResources true
+      multiDexEnabled true
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
+    debug {
+      manifestPlaceholders = [appName: "NestedList - Debug"]
+      debuggable true
+      multiDexEnabled true
+      minifyEnabled false
+      ext.enableCrashlytics = false
+      ext.alwaysUpdateBuildId = false
+    }
+  }
 
-    flavorDimensions "stage"
-    productFlavors {
-        dev {
-            dimension "stage"
-            versionNameSuffix "-dev" // e.g 1.0-dev
-            applicationIdSuffix '.dev'
-            resConfigs("en", "xxhdpi")
-        }
-        prod {
-            dimension "stage"
-        }
+  flavorDimensions "stage"
+  productFlavors {
+    dev {
+      dimension "stage"
+      versionNameSuffix "-dev" // e.g 1.0-dev
+      applicationIdSuffix '.dev'
+      resConfigs("en", "xxhdpi")
     }
-    variantFilter { variant ->
-        // 'dev' flavor is only available for debug build
-        if (variant.buildType.name != 'debug' && variant.getFlavors().get(0).name == "dev") {
-            variant.setIgnore(true)
-        }
-        // 'prod' flavor is only available for release build
-        if (!(variant.buildType.name == 'release') && variant.getFlavors().get(0).name == "prod") {
-            variant.setIgnore(true)
-        }
+    prod {
+      dimension "stage"
     }
+  }
+  variantFilter { variant ->
+    // 'dev' flavor is only available for debug build
+    if (variant.buildType.name != 'debug' && variant.getFlavors().get(0).name == "dev") {
+      variant.setIgnore(true)
+    }
+    // 'prod' flavor is only available for release build
+    if (!(variant.buildType.name == 'release') && variant.getFlavors().get(0).name == "prod") {
+      variant.setIgnore(true)
+    }
+  }
+}
+
+androidExtensions {
+  experimental = true
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
+  implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-    implementation External.kotlin
-    //  Support
-    implementation Support.appcompat
-    implementation Support.constraint
-    implementation Support.recyclerView
-    implementation Support.design
-    implementation Support.constraint
-    implementation Support.cardView
-    //  Logging
-    implementation External.timber
-    //  RX
-    implementation External.rxjava2
-    implementation External.rxbinding
-    implementation External.rxkotlin
-    //  DI
-    implementation External.dagger
-    implementation External.daggerSupport
-    annotationProcessor External.daggerCompiler
-    annotationProcessor External.daggerProcessor
-    kapt External.daggerProcessor
-    kapt External.daggerCompiler
-    //  Retrofit
-    implementation External.retrofit
-    implementation External.moshiConverter
-    implementation External.retrofitRxAdapter
-    implementation External.okhttpLoggingInterceptor
-    //  Leak detection
-    debugImplementation External.leakcanaryDebug
-    releaseImplementation External.leakcanaryRelease
-    //  Testing
-    testImplementation Uber.ribTestUtils
-    testImplementation TestDeps.junit
-    androidTestImplementation TestDeps.runner
-    androidTestImplementation TestDeps.espresso
+  implementation External.kotlin
+  //  Support
+  implementation Support.appcompat
+  implementation Support.constraint
+  implementation Support.recyclerView
+  implementation Support.design
+  implementation Support.constraint
+  implementation Support.cardView
+  //  Logging
+  implementation External.timber
+  //  RX
+  implementation External.rxjava2
+  implementation External.rxbinding
+  implementation External.rxkotlin
+  //  DI
+  implementation External.dagger
+  implementation External.daggerSupport
+  annotationProcessor External.daggerCompiler
+  annotationProcessor External.daggerProcessor
+  kapt External.daggerProcessor
+  kapt External.daggerCompiler
+  //  Retrofit
+  implementation External.retrofit
+  implementation External.moshiConverter
+  implementation External.retrofitRxAdapter
+  implementation External.okhttpLoggingInterceptor
+  //  Leak detection
+  debugImplementation External.leakcanaryDebug
+  releaseImplementation External.leakcanaryRelease
+  //  Testing
+  testImplementation Uber.ribTestUtils
+  testImplementation TestDeps.junit
+  androidTestImplementation TestDeps.runner
+  androidTestImplementation TestDeps.espresso
+
+  implementation 'com.xwray:groupie:2.0.3'
+  implementation 'com.xwray:groupie-kotlin-android-extensions:2.0.3'
+
+  implementation External.glide
+  kapt External.glideCompiler
 }
