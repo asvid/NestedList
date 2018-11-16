@@ -102,9 +102,13 @@ dependencies {
   androidTestImplementation TestDeps.runner
   androidTestImplementation TestDeps.espresso
 
-  implementation 'com.xwray:groupie:2.0.3'
-  implementation 'com.xwray:groupie-kotlin-android-extensions:2.0.3'
+  implementation 'com.xwray:groupie:2.1.0'
+  implementation 'com.xwray:groupie-kotlin-android-extensions:2.1.0'
 
   implementation External.glide
   kapt External.glideCompiler
+
+  debugCompile "com.github.brianPlummer:tinydancer:0.1.2"
+  releaseCompile "com.github.brianPlummer:tinydancer-noop:0.1.2"
+  testCompile "com.github.brianPlummer:tinydancer-noop:0.1.2"
 }
