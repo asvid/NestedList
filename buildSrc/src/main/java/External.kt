@@ -30,6 +30,8 @@ object External {
   const val glideCompiler = "com.github.bumptech.glide:compiler:${Versions.glide}"
   const val glideRecyclerView = "com.github.bumptech.glide:recyclerview-integration:${Versions.glide}"
 
+  const val groupie = "com.xwray:groupie:2.1.0"
+  const val groupieKotlin = "com.xwray:groupie-kotlin-android-extensions:2.1.0"
 }
 
 object Realm {

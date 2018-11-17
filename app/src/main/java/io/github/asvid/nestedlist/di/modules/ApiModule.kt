@@ -7,15 +7,15 @@ import io.github.asvid.nestedlist.api.JsonPlaceholderService
 import javax.inject.Singleton
 
 @Module(
-    includes = [
-        AppModule::class
-    ]
+  includes = [
+    AppModule::class
+  ]
 )
 class ApiModule {
 
-    @Singleton
-    @Provides
-    fun provideJsonPlaveholderApi(): JsonPlaceholderService =
-        HttpClient().buildRetrofit().create(JsonPlaceholderService::class.java)
+  @Singleton
+  @Provides
+  fun provideJsonPlaveholderApi(): JsonPlaceholderService =
+    HttpClient().buildRetrofit().create(JsonPlaceholderService::class.java)
 
 }

@@ -8,15 +8,15 @@ import io.github.asvid.nestedlist.appservices.photos.PhotosServiceImpl
 import javax.inject.Singleton
 
 @Module(
-    includes = [
-        ApiModule::class
-    ]
+  includes = [
+    ApiModule::class
+  ]
 )
 class AppServiceModule {
 
-    @Singleton
-    @Provides
-    fun providePhotosService(photosApi: JsonPlaceholderService): PhotosService =
-        PhotosServiceImpl(photosApi)
+  @Singleton
+  @Provides
+  fun providePhotosService(photosApi: JsonPlaceholderService): PhotosService =
+    PhotosServiceImpl(photosApi)
 
 }

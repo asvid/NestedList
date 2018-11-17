@@ -1,4 +1,4 @@
-package io.github.asvid.nestedlist.views
+package io.github.asvid.nestedlist.ui.photoslist.list
 
 import android.util.DisplayMetrics
 import android.util.TypedValue

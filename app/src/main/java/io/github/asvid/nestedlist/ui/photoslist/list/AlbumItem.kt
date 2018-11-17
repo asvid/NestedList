@@ -1,4 +1,4 @@
-package io.github.asvid.nestedlist.views
+package io.github.asvid.nestedlist.ui.photoslist.list
 
 import com.xwray.groupie.ExpandableGroup
 import com.xwray.groupie.ExpandableItem

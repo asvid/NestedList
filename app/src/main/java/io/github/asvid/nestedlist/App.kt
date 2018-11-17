@@ -2,27 +2,27 @@ package io.github.asvid.nestedlist
 
 import android.app.Activity
 import android.app.Application
-import com.codemonkeylabs.fpslibrary.TinyDancer
 import com.squareup.leakcanary.LeakCanary
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
+import dagger.android.support.HasSupportFragmentInjector
 import io.github.asvid.nestedlist.di.components.DaggerAppComponent
 import timber.log.Timber
 import javax.inject.Inject
 
-class App : Application(), HasActivityInjector {
+class App : Application(), HasActivityInjector, HasSupportFragmentInjector {
 
   @Inject
   lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
+  @Inject
+  lateinit var dispatchingFragmentInjector: DispatchingAndroidInjector<android.support.v4.app.Fragment>
 
-  override fun activityInjector(): AndroidInjector<Activity> {
-    return dispatchingAndroidInjector
-  }
+  override fun activityInjector(): AndroidInjector<Activity> = dispatchingAndroidInjector
 
-  /**
-   *  Dagger 2 initialisation
-   * */
+  override fun supportFragmentInjector(): AndroidInjector<android.support.v4.app.Fragment> =
+    dispatchingFragmentInjector
+
   init {
     DaggerAppComponent
       .builder()
@@ -36,19 +36,6 @@ class App : Application(), HasActivityInjector {
 
     initLeakCanary()
     initTimber()
-    initTinyDancer()
-  }
-
-  private fun initTinyDancer() {
-    TinyDancer.create()
-      .show(this)
-
-    //alternatively
-    TinyDancer.create()
-      .redFlagPercentage(.1f) // set red indicator for 10%....different from default
-      .startingXPosition(200)
-      .startingYPosition(600)
-      .show(this)
   }
 
 
