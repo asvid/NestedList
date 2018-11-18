@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">NestedList</string>
+    <string name="error_downloading_photos">Error occured while getting photos</string>
+    <string name="retry">Retry</string>
 </resources>

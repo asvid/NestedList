@@ -4,14 +4,19 @@ import com.xwray.groupie.ExpandableGroup
 import com.xwray.groupie.Section
 import io.github.asvid.nestedlist.appservices.photos.PhotosService
 import io.github.asvid.nestedlist.domain.Album
+import io.github.asvid.nestedlist.ui.mvp.BasePresenter
 import io.github.asvid.nestedlist.ui.photoslist.list.AlbumItem
 import io.github.asvid.nestedlist.ui.photoslist.list.PhotoItem
 import io.github.asvid.nestedlist.utils.GlideRequests
 import io.github.asvid.nestedlist.utils.subscribeWithErrorLogging
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 
-class PhotosPresenter(private val photosService: PhotosService) : Presenter {
+class PhotosPresenter(private val photosService: PhotosService) : BasePresenter<PhotosView>(),
+  Presenter {
 
   private lateinit var glide: GlideRequests
 
@@ -19,15 +24,19 @@ class PhotosPresenter(private val photosService: PhotosService) : Presenter {
     this.glide = glideRequests
   }
 
-  private lateinit var view: View
-
-  override fun bindView(view: View) {
-    this.view = view
-
+  override fun bindView(view: PhotosView, compositeDisposable: CompositeDisposable) {
+    super.bindView(view, compositeDisposable)
     initView()
+
+    Timber.d("binding view")
   }
 
   private fun initView() {
+    getPhotos()
+  }
+
+  private fun getPhotos() {
+    Timber.d("getting photos")
     photosService.getPhotos()
       .subscribeOn(Schedulers.io())
       .doOnSubscribe { view.showProgressBar() }
@@ -51,14 +60,18 @@ class PhotosPresenter(private val photosService: PhotosService) : Presenter {
       }
       .observeOn(AndroidSchedulers.mainThread())
       .subscribeWithErrorLogging {
+        Timber.d("new album: $it")
         ExpandableGroup(it.first, false)
           .apply {
             add(Section(it.second))
             view.addToAdapter(this)
           }
         view.hideProgressBar()
-      }
-
+      }.addTo(compositeDisposable)
   }
 
+  override fun retryGetPhotos() {
+    Timber.d("retry getting photos")
+    getPhotos()
+  }
 }

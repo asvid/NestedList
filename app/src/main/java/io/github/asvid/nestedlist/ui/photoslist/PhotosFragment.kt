@@ -1,53 +1,55 @@
 package io.github.asvid.nestedlist.ui.photoslist
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.xwray.groupie.ExpandableGroup
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder
 import io.github.asvid.nestedlist.R
-import io.github.asvid.nestedlist.appservices.photos.PhotosService
 import io.github.asvid.nestedlist.ui.BaseFragment
 import io.github.asvid.nestedlist.utils.GlideApp
 import io.github.asvid.nestedlist.utils.MarginItemDecoration
+import kotlinx.android.synthetic.main.fragment_photos.*
 import kotlinx.android.synthetic.main.fragment_photos.view.*
 import javax.inject.Inject
 
-class PhotosFragment : BaseFragment(), View {
+class PhotosFragment : BaseFragment(), PhotosView {
+
+
   override fun showProgressBar() {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    photos_progressbar.visibility = View.VISIBLE
   }
 
   override fun showGettingPhotosError() {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    Snackbar
+      .make(this.view!!, R.string.error_downloading_photos, Snackbar.LENGTH_LONG)
+      .setAction(R.string.retry) { presenter.retryGetPhotos() }
+      .show()
   }
 
   override fun hideProgressBar() {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    photos_progressbar.visibility = View.GONE
   }
 
-  override fun addToAdapter(expandableGroup: ExpandableGroup) {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+  override fun addToAdapter(group: ExpandableGroup) {
+    groupAdapter.add(group)
   }
 
   @Inject
   lateinit var presenter: Presenter
 
-  @Inject
-  lateinit var photosService: PhotosService
+  private val groupAdapter = GroupAdapter<ViewHolder>()
 
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): android.view.View? {
-    presenter.setGlide(GlideApp.with(this))
-    presenter.bindView(this)
     val view = inflater.inflate(R.layout.fragment_photos, container, false)
-    val groupAdapter = GroupAdapter<ViewHolder>()
-
 
     view.photos_list_recyclerView.apply {
       layoutManager = LinearLayoutManager(context)
@@ -56,7 +58,12 @@ class PhotosFragment : BaseFragment(), View {
       setHasFixedSize(true)
       setItemViewCacheSize(300)
     }
-
     return view
+  }
+
+  override fun onResume() {
+    super.onResume()
+    presenter.setGlide(GlideApp.with(this))
+    presenter.bindView(this, compositeDisposable)
   }
 }
