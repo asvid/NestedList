@@ -7,6 +7,9 @@ import io.github.asvid.nestedlist.appservices.photos.PhotosService
 import io.github.asvid.nestedlist.appservices.photos.PhotosServiceImpl
 import javax.inject.Singleton
 
+/**
+ * Provides app services
+ * */
 @Module(
   includes = [
     ApiModule::class

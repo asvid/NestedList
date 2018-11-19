@@ -5,6 +5,10 @@ import io.github.asvid.nestedlist.ui.mvp.MvpPresenter
 import io.github.asvid.nestedlist.ui.mvp.MvpView
 import io.github.asvid.nestedlist.utils.GlideRequests
 
+/**
+ * Contract contains interfaces for MVP View and Presenter
+ * */
+
 interface PhotosView : MvpView {
   fun showProgressBar()
   fun showGettingPhotosError()

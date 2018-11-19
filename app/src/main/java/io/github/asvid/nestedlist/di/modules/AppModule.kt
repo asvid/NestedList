@@ -7,6 +7,9 @@ import io.github.asvid.nestedlist.App
 import io.github.asvid.nestedlist.di.components.MainActivityComponent
 import io.github.asvid.nestedlist.di.components.PhotosFragmentComponent
 
+/**
+ * Provides objects related to Android framework
+ * */
 @Module(
   subcomponents = [
     MainActivityComponent::class,

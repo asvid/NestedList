@@ -6,7 +6,7 @@ import retrofit2.http.GET
 
 interface JsonPlaceholderService {
 
-    //  https://jsonplaceholder.typicode.com/photos
-    @GET("photos")
-    fun getPhotos(): Single<List<PhotosResponse>>
+  //  https://jsonplaceholder.typicode.com/photos
+  @GET("photos")
+  fun getPhotos(): Single<List<PhotosResponse>>
 }

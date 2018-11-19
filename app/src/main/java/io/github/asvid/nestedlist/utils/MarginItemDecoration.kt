@@ -4,6 +4,11 @@ import android.graphics.Rect
 import android.support.v7.widget.RecyclerView
 import android.view.View
 
+/**
+ * [RecyclerView.ItemDecoration] used in [Photo] list
+ *
+ * @param spaceHeight - items padding in dp
+ * */
 class MarginItemDecoration(private val spaceHeight: Int) : RecyclerView.ItemDecoration() {
   override fun getItemOffsets(
     outRect: Rect, view: View,

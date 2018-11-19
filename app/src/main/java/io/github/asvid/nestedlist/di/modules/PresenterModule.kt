@@ -6,6 +6,9 @@ import io.github.asvid.nestedlist.appservices.photos.PhotosService
 import io.github.asvid.nestedlist.ui.photoslist.PhotosPresenter
 import io.github.asvid.nestedlist.ui.photoslist.Presenter
 
+/**
+ * Provides presenters for Fragments
+ * */
 @Module(includes = [AppServiceModule::class])
 class PresenterModule {
 

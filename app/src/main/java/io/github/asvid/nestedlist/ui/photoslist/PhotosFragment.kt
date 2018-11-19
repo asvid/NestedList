@@ -17,27 +17,13 @@ import kotlinx.android.synthetic.main.fragment_photos.*
 import kotlinx.android.synthetic.main.fragment_photos.view.*
 import javax.inject.Inject
 
+/**
+ * Fragment containing [Photo]s list, it extends [BaseFragment] and [PhotosView]
+ *
+ * @property presenter - injected by Dagger [Presenter] object
+ * @property groupAdapter - adapter for [Photo]s list
+ * */
 class PhotosFragment : BaseFragment(), PhotosView {
-
-
-  override fun showProgressBar() {
-    photos_progressbar.visibility = View.VISIBLE
-  }
-
-  override fun showGettingPhotosError() {
-    Snackbar
-      .make(this.view!!, R.string.error_downloading_photos, Snackbar.LENGTH_LONG)
-      .setAction(R.string.retry) { presenter.retryGetPhotos() }
-      .show()
-  }
-
-  override fun hideProgressBar() {
-    photos_progressbar.visibility = View.GONE
-  }
-
-  override fun addToAdapter(group: ExpandableGroup) {
-    groupAdapter.add(group)
-  }
 
   @Inject
   lateinit var presenter: Presenter
@@ -60,6 +46,26 @@ class PhotosFragment : BaseFragment(), PhotosView {
     }
     return view
   }
+
+  override fun showProgressBar() {
+    photos_progressbar.visibility = View.VISIBLE
+  }
+
+  override fun showGettingPhotosError() {
+    Snackbar
+      .make(this.view!!, R.string.error_downloading_photos, Snackbar.LENGTH_INDEFINITE)
+      .setAction(R.string.retry) { presenter.retryGetPhotos() }
+      .show()
+  }
+
+  override fun hideProgressBar() {
+    photos_progressbar.visibility = View.GONE
+  }
+
+  override fun addToAdapter(group: ExpandableGroup) {
+    groupAdapter.add(group)
+  }
+
 
   override fun onResume() {
     super.onResume()

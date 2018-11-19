@@ -1,0 +1,16 @@
+$dokka.format:gfm
+$dokka.linkExtension:md
+
+io.github.asvid.nestedlist
+io.github.asvid.nestedlist.api
+io.github.asvid.nestedlist.api.response
+io.github.asvid.nestedlist.appservices.photos
+io.github.asvid.nestedlist.di
+io.github.asvid.nestedlist.di.components
+io.github.asvid.nestedlist.di.modules
+io.github.asvid.nestedlist.domain
+io.github.asvid.nestedlist.ui
+io.github.asvid.nestedlist.ui.mvp
+io.github.asvid.nestedlist.ui.photoslist
+io.github.asvid.nestedlist.ui.photoslist.list
+io.github.asvid.nestedlist.utils

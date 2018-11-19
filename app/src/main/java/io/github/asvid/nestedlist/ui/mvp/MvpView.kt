@@ -1,4 +1,6 @@
 package io.github.asvid.nestedlist.ui.mvp
 
-interface MvpView {
-}
+/**
+ * Interface for MVP view
+ * */
+interface MvpView

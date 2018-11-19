@@ -38,11 +38,16 @@ class App : Application(), HasActivityInjector, HasSupportFragmentInjector {
     initTimber()
   }
 
-
+  /**
+   * [Timber] logging library initialization
+   * */
   private fun initTimber() {
     Timber.plant(Timber.DebugTree())
   }
 
+  /**
+   * [LeakCanary] library initialization
+   * */
   private fun initLeakCanary() {
     if (LeakCanary.isInAnalyzerProcess(this)) {
       return
